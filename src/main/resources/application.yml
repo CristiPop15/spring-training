@@ -1,0 +1,53 @@
+server:
+  port: 7070
+
+training:
+  val: "---- definita in application yml ---"
+  test:
+    enabled: false
+
+credentials:
+  id: 1
+  username: "cristi"
+  password: "cristipw"
+
+defaultRecipients[0]: "admin@mail.com"
+defaultRecipients[1]: "owner@mail.com"
+
+additionalHeaders:
+  redelivery: true
+  secure: false
+
+spring:
+  application:
+    name: spring-accesa
+  cloud:
+    consul:
+      enabled: true
+      discovery:
+        serviceName: ${spring.application.name}-local
+        port: 7070
+        tags:
+          - training
+          - spring
+          - accesa
+        healthCheckUrl: http://localhost:${server.port}/actuator/health
+        healthCheckInterval: 5s
+
+db:
+  driver: 'org.postgresql.Driver'
+  url: 'jdbc:postgresql://localhost:5433/spring-training'
+  user: 'postgres'
+  password: 'postgres'
+  pool:
+    size: 10
+
+#spring:
+#    profiles:
+#        active: production
+
+#management:
+#  context-path: /manage
+#  security:
+#    enabled: false
+
